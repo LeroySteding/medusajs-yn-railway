@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { listCategories } from "@lib/data/categories"
 import { NavigationMenuItemMultiColumn } from "@/components/header/navigation-menu-item-multi-column"
 import { NavigationFeaturedBlock } from "@/components/header/navigation-featured-block"
 import { NavigationMenuItemLink } from "@/components/header/navigation-menu-item-link"
