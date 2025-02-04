@@ -1,11 +1,10 @@
 import { Metadata } from "next"
 
-import Footer from "@modules/layout/templates/footer"
 import { getBaseURL } from "@lib/util/env"
 import { SiteHeader } from "components/header/site-header"
 import { InstagramCarousel } from "components/instagram-carousel"
 import { listCategories } from "@lib/data/categories"
-
+import { Footer } from "@/components/Footer"
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseURL()),
 }

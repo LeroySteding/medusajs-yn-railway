@@ -15,15 +15,15 @@ export const NewsletterForm: React.FC<{ className?: string }> = ({
 
   return (
     <div className={className}>
-      <h2 className="text-md md:text-lg mb-2 md:mb-1">Join our newsletter</h2>
+      <h2 className="text-md md:text-lg mb-2 md:mb-1">Nieuwsbrief</h2>
       {isSubmitted ? (
         <p className="max-md:text-xs">
-          Thank you for subscribing to our newsletter!
+          Bedankt voor het abonneren op onze nieuwsbrief!
         </p>
       ) : (
         <>
           <p className="max-md:text-xs mb-4">
-            We will also send you our discount coupons!
+              Ontvang nieuwe collectie updates, events, en kortingsacties in je mail.
           </p>
           <form
             onSubmit={(event) => {
@@ -32,7 +32,7 @@ export const NewsletterForm: React.FC<{ className?: string }> = ({
               setIsSubmitted(true)
             }}
           >
-            <div className="flex gap-2">
+            <div className="flex gap-2 pt-2">
               <Input
                 uiSize="sm"
                 name="email"
@@ -47,15 +47,15 @@ export const NewsletterForm: React.FC<{ className?: string }> = ({
             </div>
           </form>
           <p className="text-xs text-grayscale-500">
-            By subscribing you agree to with our{" "}
+            Door te abonneren ga je akkoord met onze{" "}
             <LocalizedLink
               href="/privacy-policy"
               variant="underline"
               className="!pb-0"
             >
-              Privacy Policy
+              privacybeleid
             </LocalizedLink>{" "}
-            and provide consent to receive updates from our company.
+            en geef toestemming om updates te ontvangen van onze bedrijf.
           </p>
         </>
       )}

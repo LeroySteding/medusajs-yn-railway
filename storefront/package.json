@@ -10,6 +10,7 @@
   "scripts": {
     "wait": "await-backend",
     "launcher": "launch-storefront",
+    "dev:local": "next dev",
     "dev": "npm run wait && npm run launcher dev",
     "build": "npm run wait && npm run launcher build",
     "build:next": "next build",
@@ -23,6 +24,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.6.1",
+    "@heroui/react": "^2.6.14",
     "@heroui/theme": "^2.4.6",
     "@hookform/error-message": "^2.0.0",
     "@medusajs/js-sdk": "preview",
