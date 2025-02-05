@@ -1,7 +1,6 @@
 "use client"
 
 import { RadioGroup } from "@headlessui/react"
-import { CheckCircleSolid } from "@medusajs/icons"
 import { Button, Heading, Text, clx } from "@medusajs/ui"
 
 import Divider from "@modules/common/components/divider"
@@ -12,6 +11,7 @@ import { useEffect, useState } from "react"
 import { setShippingMethod } from "@lib/data/cart"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
+import { Check } from "lucide-react"
 
 type ShippingProps = {
   cart: HttpTypes.StoreCart
@@ -74,7 +74,7 @@ const Shipping: React.FC<ShippingProps> = ({
         >
           Delivery
           {!isOpen && (cart.shipping_methods?.length ?? 0) > 0 && (
-            <CheckCircleSolid />
+            <Check />
           )}
         </Heading>
         {!isOpen &&

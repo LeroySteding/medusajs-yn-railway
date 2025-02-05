@@ -1,10 +1,10 @@
 import { Metadata } from "next"
 import CartTemplate from "@modules/cart/templates"
 
-import { enrichLineItems, retrieveCart } from "@lib/data/cart"
+import {  retrieveCart } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
 import { getCustomer } from "@lib/data/customer"
-
+import { enrichLineItems } from "@lib/util/enrich-line-items"
 export const metadata: Metadata = {
   title: "Cart",
   description: "View your cart",

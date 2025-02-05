@@ -26,6 +26,9 @@ import {
 
 loadEnv(process.env.NODE_ENV, process.cwd());
 
+const STORE_CORS = process.env.STORE_CORS || "http://localhost:3001"
+const ADMIN_CORS = process.env.ADMIN_CORS || "http://localhost:7001"
+
 const medusaConfig = {
   projectConfig: {
     databaseUrl: DATABASE_URL,
@@ -37,7 +40,14 @@ const medusaConfig = {
       authCors: AUTH_CORS,
       storeCors: STORE_CORS,
       jwtSecret: JWT_SECRET,
-      cookieSecret: COOKIE_SECRET
+      cookieSecret: COOKIE_SECRET,
+      options: {
+        cors: {
+          origin: [STORE_CORS],
+          methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+          credentials: true,
+        }
+      }
     }
   },
   admin: {
