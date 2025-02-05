@@ -53,7 +53,7 @@ export function HeroSlider({ slides, isSingleSlide = false }: HeroSliderProps) {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-black/40 flex items-end justify-begin p-20">
+          <div className="absolute inset-0 bg-black/40 flex items-end justify-begin p-8 md:p-20">
             <div className="text-left text-white">
               <h2 className="text-4xl font-bold mb-4">{slide.title}</h2>
               {slide.description && <p className="text-xl mb-6">{slide.description}</p>}

@@ -4,7 +4,24 @@ import { cache } from "react"
 import { getRegion } from "./regions"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { sortProducts } from "@lib/util/sort-products"
-
+export const getProductsByCategoryId = cache(async function ({
+  categoryId,
+  regionId,
+}: {
+categoryId: string
+regionId: string
+}) {
+return sdk.store.product
+.list(
+{
+category_id: categoryId,
+region_id: regionId,
+fields: "*variants.calculated_price,+variants.inventory_quantity",
+},
+{ next: { tags: ["products"] } }
+)
+.then(({ products }) => products)
+})
 export const getProductsById = cache(async function ({
   ids,
   regionId,

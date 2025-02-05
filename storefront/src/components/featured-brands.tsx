@@ -28,7 +28,7 @@ const brands = [
 
 export function FeaturedBrands() {
   return (
-    <section className="mx-20">
+    <section className="mx-8 md:mx-20">
       <div className="flex items-center justify-between pb-8">
         <Heading size="8">Featured Brands</Heading>
         <Button variant="secondary" className="rounded-full">

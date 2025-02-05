@@ -13,7 +13,7 @@ interface NavigationProps {
   categories: StoreProductCategory[];
 }
 
-export const Navigation: React.FC<NavigationProps> = ({ isScrolled, categories }) => {
+export const Navigation: React.FC<NavigationProps> =  ({ isScrolled, categories }) => {
   const [hoveredCategory, setHoveredCategory] = useState<any | null>(null);
 
   useEffect(() => {

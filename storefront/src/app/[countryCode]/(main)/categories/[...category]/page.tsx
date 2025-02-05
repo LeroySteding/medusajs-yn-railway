@@ -1,90 +1,104 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
-
-import { getCategoryByHandle, listCategories } from "@lib/data/categories"
-import { listRegions } from "@lib/data/regions"
-import { StoreProductCategory, StoreRegion } from "@medusajs/types"
-import CategoryTemplate from "@modules/categories/templates"
+import { getRegion, listRegions } from "@lib/data/regions"
+import { StoreCollection, StoreProductCategory, StoreRegion } from "@medusajs/types"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import { HeroSlider, SlideData } from "@/components/hero-slider"
+import { getCategoryByHandle, listCategories } from "@lib/data/categories"
+import { getProductsByCategoryId } from "@lib/data/products"
+import { ProductCategory } from "@medusajs/client-types"
+import CategoryTemplate from "@modules/categories/templates"
+import { undefined } from "zod"
 
 type Props = {
-  params: { category: string[]; countryCode: string }
-  searchParams: {
-    sortBy?: SortOptions
+  params: Promise<{ handle: string; countryCode: string }>
+  searchParams: Promise<{
+    category?: string | string[]
+    type?: string | string[]
     page?: string
-  }
+    sortBy?: SortOptions
+  }>
 }
 
 export async function generateStaticParams() {
-  const product_categories = await listCategories()
-
-  if (!product_categories) {
+  const categories = await listCategories()
+  if (!categories) {
     return []
   }
-
-  const countryCodes = await listRegions().then((regions: StoreRegion[]) =>
-    regions?.map((r) => r.countries?.map((c) => c.iso_2)).flat()
+  const countryCodes = await listRegions().then(
+    (regions: StoreRegion[]) =>
+      regions
+        ?.map((r) => r.countries?.map((c) => c.iso_2))
+        .flat()
+        .filter(Boolean) as string[]
   )
-
-  const categoryHandles = product_categories.map(
-    (category: any) => category.handle
-  )
-
+  const categoryHandles = categories.map((category: StoreProductCategory) => category.handle)
   const staticParams = countryCodes
-    ?.map((countryCode: string | undefined) =>
-      categoryHandles.map((handle: any) => ({
+    ?.map((countryCode: string) =>
+      categoryHandles.map((handle: string | undefined) => ({
         countryCode,
-        category: [handle],
+        handle,
       }))
     )
     .flat()
-
   return staticParams
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  try {
-    const { product_categories } = await getCategoryByHandle(
-      params.category
-    )
-
-    const title = product_categories
-      .map((category: StoreProductCategory) => category.name)
-      .join(" | ")
-
-    const description =
-      product_categories[product_categories.length - 1].description ??
-      `${title} category.`
-
-    return {
-      title: `${title} | Medusa Store`,
-      description,
-      alternates: {
-        canonical: `${params.category.join("/")}`,
-      },
-    }
-  } catch (error) {
+  const { handle } = await params
+  const categoryResponse = await getCategoryByHandle([handle])
+  if (!categoryResponse.product_categories || categoryResponse.product_categories.length === 0) {
     notFound()
+  }
+  const category = categoryResponse.product_categories[0]
+  if (!category) {
+    notFound()
+  }
+  return {
+    title: `${category.name} | Younithy`,
+    description: `${category.description || ""} | Younithy`,
   }
 }
-
 export default async function CategoryPage({ params, searchParams }: Props) {
-  const { sortBy, page } = searchParams
+  const { handle, countryCode } = await params
+  const { sortBy, page } = await searchParams
 
-  const { product_categories } = await getCategoryByHandle(
-    params.category
-  )
-
-  if (!product_categories) {
+  const categoryResponse = await getCategoryByHandle([handle])
+  if (!categoryResponse.product_categories || categoryResponse.product_categories.length === 0) {
     notFound()
   }
 
+  const category = categoryResponse.product_categories[0]
+
+  const categoryData: ProductCategory = {
+    // @ts-ignore
+    category_children: undefined, is_active: false, is_internal: false, metadata: undefined, mpath: undefined,
+    id: category.id,
+    name: category.name,
+    handle: category.handle,
+    parent_category_id: category.parent_category_id,
+    description: category.description,
+    created_at: category.created_at,
+    updated_at: category.updated_at
+  };
+  const region = await getRegion(countryCode)
+
+  // @ts-ignore
+  const products = await getProductsByCategoryId({categoryId: category.id, regionId: region.id})
+  const headerSlide: SlideData = {
+    image: "/images/default-collection-header.jpg",
+    title: category.name,
+    description: category.description || "",
+  }
   return (
-    <CategoryTemplate
-      categories={product_categories}
-      sortBy={sortBy}
-      page={page}
-      countryCode={params.countryCode}
-    />
+
+    <div>
+      <HeroSlider slides={[headerSlide]} isSingleSlide={true} />
+      <CategoryTemplate 
+        page={page} 
+        categories={[category]}
+        sortBy={sortBy} 
+        countryCode={countryCode}
+      />
+    </div>
   )
 }

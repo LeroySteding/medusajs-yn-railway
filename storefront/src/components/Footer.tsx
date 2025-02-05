@@ -6,15 +6,26 @@ import { LocalizedLink } from "@/components/LocalizedLink"
 import { InfiniteSlider } from "@/components/InfiniteSlider"
 import  Image  from "next/image";
 import { DivideCircleIcon } from "lucide-react"
+import Logo from "./Logo"
 
 
 export const Footer: React.FC = () => {
   return (
     <div className="bg-black text-white">
       <InfiniteSlider />
-      <div className="grid gap-20 grid-cols-4 mx-20  py-8 md:py-20">
-        <div className="flex items-center justify-center">
-          <Image src="/images/younithy-logo.png" alt="Hifive" height="100" width="400" />
+      <div className="grid gap-20 grid-cols-2 md:grid-cols-4 px-8 md:mx-20  py-6 md:py-20">
+        <div className="hidden md:flex items-center justify-center">
+        <Logo
+                colorY="#ffffff"
+                colorO="#ffffff"
+                colorU="#ffffff"
+                colorN="#ffffff"
+                colorI="#ffffff"
+                colorT="#ffffff"
+                colorH="#ffffff"
+                colorY2="#C73C35"
+                className="w-56"
+              />
         </div>
 
         <div className="flex items-center justify-center">
@@ -54,11 +65,11 @@ export const Footer: React.FC = () => {
         </div>
   
       
-        <div className="flex items-center justify-center">
+        <div className="col-span-2 md:col-span-1 flex items-center justify-center">
         <NewsletterForm className="" />
         </div>
       </div>
-      <div className="flex flex-row justify-between mx-20 pb-8">
+      <div className="flex flex-col md:flex-row justify-center items-center md:items-start md:justify-between mx-8 md:mx-20 pb-8">
       <ul className="flex flex-row gap-6 md:gap-3.5 text-xs mags-auto text-center mt-5">
             <li>
               <LocalizedLink href="/privacy-policy">

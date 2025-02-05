@@ -36,7 +36,7 @@ const products = [
 
 export function FeaturedProducts() {
   return (
-    <section className="mx-20">
+    <section className="mx-8 md:mx-20">
         <div className="flex items-center justify-between pb-8">
           <Heading size="8">Explore New Amsterdam Surf Association</Heading>
           <Button variant="secondary" className="rounded-full">

@@ -63,7 +63,7 @@ export const NavigationMenuItemMultiColumn: React.FC<NavigationMenuItemMultiColu
                   <li key={itemIndex}>
                     <Link
                       href={item.subCategoryHref}
-                      className="text-grayscale-400 hover:text-black block select-none space-y-1 rounded-md py-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      className="text-grayscale-400 text-grey-50 hover:text-black block select-none space-y-1 rounded-md py-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       onMouseEnter={() => {
                         const childCategory = category.category_children.find(
                           (child: any) => child.name === item.label
@@ -86,7 +86,7 @@ export const NavigationMenuItemMultiColumn: React.FC<NavigationMenuItemMultiColu
                     <li key={itemIndex}>
                       <Link
                         href={item.subCategoryHref}
-                        className="text-black block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        className="text-grey-50 hover:text-black  block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
                         <Heading size="4"> {item.label}</Heading>
                       </Link>

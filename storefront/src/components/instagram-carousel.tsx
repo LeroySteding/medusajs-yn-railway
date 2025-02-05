@@ -69,9 +69,9 @@ export function InstagramCarousel() {
   }, [emblaApi])
 
   return (
-    <section className="">
-        <Heading size="8" className={"ml-20"}>Captures @younithyofficial</Heading>
-        <div className="relative mt-6 items-center">
+    <section className="mx-8 md:mx-20">
+        <Heading size="8" className={"ml-0"}>Captures @younithyofficial</Heading>
+        <div className="relative mt-6 items-center md:-ml-20 md:-mr-20 -mr-8 -ml-8">
           <div className="overflow-hidden" ref={emblaRef}>
             <div className="flex gap-2">
               {instagramPosts.map((post) => (
@@ -99,7 +99,7 @@ export function InstagramCarousel() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-1/2 left-22 -translate-y-1/2 bg-white/80 hover:bg-white/90 rounded-full shadow-lg z-10"
+            className="absolute top-1/2 left-8 md:left-22 -translate-y-1/2 bg-white/80 hover:bg-white/90 rounded-full shadow-lg z-10"
             onClick={scrollPrev}
           >
             <ChevronLeft className="h-6 w-6" />
@@ -108,7 +108,7 @@ export function InstagramCarousel() {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute right-22 mr-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 rounded-full shadow-lg z-10"
+            className="absolute right-0 md:right-22 mr-8 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white/90 rounded-full shadow-lg z-10"
             onClick={scrollNext}
           >
             <ChevronRight className="h-6 w-6" />
