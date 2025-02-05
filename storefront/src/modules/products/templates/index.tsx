@@ -1,7 +1,6 @@
 import React, { Suspense } from "react"
 import { notFound } from "next/navigation"
 import { HttpTypes } from "@medusajs/types"
-import Image from "next/image"
 
 import { collectionMetadataCustomFieldsSchema } from "@lib/util/collections"
 import ImageGallery from "@modules/products/components/image-gallery"
@@ -9,7 +8,6 @@ import ProductActions from "@modules/products/components/product-actions"
 import RelatedProducts from "@modules/products/components/related-products"
 import ProductInfo from "@modules/products/templates/product-info"
 import SkeletonRelatedProducts from "@modules/skeletons/templates/skeleton-related-products"
-import { LocalizedLink } from "@/components/LocalizedLink"
 import { Layout, LayoutColumn } from "@/components/Layout"
 import ProductActionsWrapper from "./product-actions-wrapper"
 import { HeroSlider, SlideData } from "@/components/hero-slider"
@@ -56,7 +54,7 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
           <div className="flex max-lg:flex-col gap-8 xl:gap-27">
             {hasImages && (
               <div className="lg:w-1/2 flex flex-1 flex-col gap-8">
-                <ImageGallery images={images} />
+                <ImageGallery  images={images} />
               </div>
             )}
             <div className="sticky flex-1 top-0">
