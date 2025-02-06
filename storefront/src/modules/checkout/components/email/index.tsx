@@ -1,6 +1,6 @@
 "use client"
+import { useFormState } from "react-dom"  // Update import
 
-import { useActionState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { twJoin } from "tailwind-merge"
 import { HttpTypes } from "@medusajs/types"
@@ -11,11 +11,7 @@ import { Input } from "@/components/Forms"
 import ErrorMessage from "../error-message"
 import { SubmitButton } from "../submit-button"
 
-const Email = ({
-  cart,
-  customer,
-  countryCode,
-}: {
+const Email = ({ cart, customer, countryCode }: {
   cart: HttpTypes.StoreCart | null
   customer: HttpTypes.StoreCustomer | null
   countryCode: string
@@ -26,7 +22,7 @@ const Email = ({
 
   const isOpen = searchParams.get("step") === "email"
 
-  const [state, formAction] = useActionState(setEmail, null)
+  const [state, formAction] = useFormState(setEmail, null)
   return (
     <>
       <div className="flex justify-between mb-8">

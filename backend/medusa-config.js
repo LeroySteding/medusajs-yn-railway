@@ -26,8 +26,8 @@ import {
 
 loadEnv(process.env.NODE_ENV, process.cwd());
 
-const STORE_CORS = process.env.STORE_CORS || "http://localhost:3001"
-const ADMIN_CORS = process.env.ADMIN_CORS || "http://localhost:7001"
+// const STORE_CORS = process.env.STORE_CORS || "http://localhost:3001"
+// const ADMIN_CORS = process.env.ADMIN_CORS || "http://localhost:7001"
 
 const medusaConfig = {
   projectConfig: {
@@ -133,6 +133,17 @@ const medusaConfig = {
             options: {
               apiKey: STRIPE_API_KEY,
               webhookSecret: STRIPE_WEBHOOK_SECRET,
+              payment_methods: {
+                ideal: {
+                  enabled: true,
+                  currencies: ['EUR'],
+                  countries: ['NL'],
+                },
+                card: {
+                  enabled: true,
+                  currencies: ['eur', 'usd'],
+                },
+              },
             },
           },
         ],

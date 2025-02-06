@@ -1,14 +1,15 @@
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getRegion, listRegions } from "@lib/data/regions"
-import { StoreCollection, StoreProductCategory, StoreRegion } from "@medusajs/types"
-import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import { StoreProductCategory, StoreRegion } from "@medusajs/types"
 import { HeroSlider, SlideData } from "@/components/hero-slider"
 import { getCategoryByHandle, listCategories } from "@lib/data/categories"
 import { getProductsByCategoryId } from "@lib/data/products"
 import { ProductCategory } from "@medusajs/client-types"
-import CategoryTemplate from "@modules/categories/templates"
 import { undefined } from "zod"
+import PaginatedProducts from "@modules/store/templates/paginated-products"
+import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import RefinementList from "@modules/store/components/refinement-list"
 
 type Props = {
   params: Promise<{ handle: string; countryCode: string }>
@@ -84,21 +85,27 @@ export default async function CategoryPage({ params, searchParams }: Props) {
 
   // @ts-ignore
   const products = await getProductsByCategoryId({categoryId: category.id, regionId: region.id})
+  
   const headerSlide: SlideData = {
-    image: "/images/default-collection-header.jpg",
+    image: "/images/collection-demo.jpg",
     title: category.name,
     description: category.description || "",
-  }
+  }  
+  const sort = sortBy || "created_at"
+
+
+  console.log("category", category)
+  console.log("region", region)
+  console.log("products", products)
+  console.log("categoryData", categoryData)
   return (
 
     <div>
       <HeroSlider slides={[headerSlide]} isSingleSlide={true} />
-      <CategoryTemplate 
-        page={page} 
-        categories={[category]}
-        sortBy={sortBy} 
-        countryCode={countryCode}
-      />
+      <div className="flex flex-col small:flex-row small:items-start mx-8 md:mx-20 py-20">
+        <RefinementList sortBy={sort} />
+        <PaginatedProducts page={1} countryCode={countryCode}  categoryId={category.id}/>
+      </div>
     </div>
   )
 }

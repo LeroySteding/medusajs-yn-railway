@@ -24,7 +24,9 @@ const CheckoutForm: React.FC<CheckoutFormProps> = ({ cart, customer, countryCode
     const fetchData = async () => {
       try {
         const shippingOptions = await listCartShippingMethods(cart.id)
+        console.log("shippingOptions", shippingOptions)
         const paymentOptions = await listCartPaymentMethods(cart.region?.id ?? "")
+        console.log("paymentOptions", paymentOptions)
         if (!shippingOptions) {
           throw new Error("Failed to fetch shipping or payment methods.")
         }

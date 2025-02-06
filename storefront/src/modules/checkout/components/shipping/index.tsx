@@ -45,14 +45,28 @@ const Shipping: React.FC<ShippingProps> = ({
   }
 
   const set = async (id: string) => {
+    console.log("set", id)
+    console.log("cart", cart)
     setIsLoading(true)
-    await setShippingMethod({ cartId: cart.id, shippingMethodId: id })
-      .catch((err) => {
-        setError(err.message)
+    try {
+      if (!cart.id) {
+        throw new Error("No cart ID found")
+      }
+      if (!id) {
+        throw new Error("No shipping method selected")
+      }
+      
+      await setShippingMethod({ 
+        cartId: cart.id, 
+        shippingMethodId: id 
       })
-      .finally(() => {
-        setIsLoading(false)
-      })
+      console.log("Shipping method set", cart)
+    } catch (err: any) {
+      setError(err.message)
+      console.log("Shipping method error:", err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -132,6 +146,11 @@ const Shipping: React.FC<ShippingProps> = ({
             error={error}
             data-testid="delivery-option-error-message"
           />
+          <div>
+            <Text>
+              {cart.shipping_methods?.[0]?.shipping_option_id}
+            </Text>
+          </div>
 
           <Button
             size="large"
